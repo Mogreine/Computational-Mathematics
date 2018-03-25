@@ -6,11 +6,11 @@ def fi(x):
 
 
 def f(x):
-    return 2 * math.pow(x, 2) - math.pow(x, 3) - math.pow(math.e, x)
+    return math.pow(math.e, -0.5 * x) - 0.2 * math.pow(x, 2) + 1
 
 
 def f1(x):
-    return 4 * x - 3 * math.pow(x, 2) - math.pow(math.e, x)
+    return -0.5 * math.pow(math.e, -0.5 * x) - 0.4 * x
 
 
 def newton(x0, eps, iteration):
@@ -36,12 +36,8 @@ def staffinson(x0, eps, iteration):
         return x0
 
 
-def fi_sample(x):
-    return (4 * x + 2 * math.pow(x, 2) - math.pow(x, 3) - math.pow(math.e, x)) / 4
-
-
 def simp_iteration(x0, eps, iteration):
-    x = fi_sample(x0)
+    x = fi(x0)
     diff = math.fabs(x - x0)
     print("{0}\t{1:0.4f}\t{2:0.4f}\t{3:0.4f}".format(iteration, x0, x, diff))
     if diff > eps:
@@ -51,11 +47,14 @@ def simp_iteration(x0, eps, iteration):
 
 
 def main():
+    print("Метод простых итераций")
     print("n\tx\t\tfi(x)\tdiff")
-    print("x = {0:0.4f}".format(simp_iteration(-1, 0.0002, 0)))
-    print("\nn\tx\t\t\tf(x)\t\tf1(x)\t\tdiff")
-    print("x = {0:0.6f}".format(newton(-1, 0.000001, 0)))
-    print("\nn\tx\t\t\tf(x)\t\tdiff")
-    print("x = {0:0.6f}".format(staffinson(-1, 0.000001, 0)))
+    print("x = {0:0.3f}".format(simp_iteration(3, 0.0004, 0)))
+    print("\nМетод Ньютона")
+    print("n\tx\t\t\tf(x)\t\tf1(x)\t\tdiff")
+    print("x = {0:0.6f}".format(newton(3, 0.000001, 0)))
+    print("\nМетод Стеффенсена")
+    print("n\tx\t\t\tf(x)\t\tdiff")
+    print("x = {0:0.6f}".format(staffinson(3, 0.000001, 0)))
 
 main()
