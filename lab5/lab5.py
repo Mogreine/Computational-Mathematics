@@ -32,6 +32,8 @@ def norm(x):
 
 
 def printNewton(log, diffLog):
+    print("Метод Ньютона")
+    print("k\tx\t\t\tdiff")
     for k in range(len(log)):
         print("{0}\t{1:.6f}\t{2:.6f}".format(k, log[k][0], diffLog[k]))
         print(" \t{0:.6f}".format(log[k][1]))
@@ -42,8 +44,9 @@ def gradient_descent(G, x, eps):
     F = sp.expand(F)
     JF = [sp.diff(F, x[0]), sp.diff(F, x[1])]
     JF_calc = sp.lambdify(x, JF)
+    F_calc = sp.lambdify(x, F)
 
-    x0 = [0.5, 0]
+    x0 = [0, 1]
     alpha = 0.01
     diff_log = [0]
     log = [norm(x0)]
@@ -59,7 +62,7 @@ def gradient_descent(G, x, eps):
     alpha = np.dot(x1 - x0, sub) / ((norm(sub)) ** 2)
 
     log_alpha = [alpha]
-
+    log_f = [F_calc(x1[0], x1[1])]
     while norm_diff > eps:
         x0 = x1
         x1 = x1 - np.dot(alpha, JF_calc(x1[0], x1[1]))
@@ -69,6 +72,7 @@ def gradient_descent(G, x, eps):
         sub = np.array(JF_calc(x1[0], x1[1])) - np.array(JF_calc(x0[0], x0[1]))
         alpha = np.dot(x1 - x0, sub) / ((norm(sub)) ** 2)
         log_alpha.append(alpha)
+        log_f.append(F_calc(x1[0], x1[1]))
     # F_calc = sp.lambdify(x, F)
     # min = F_calc(x1[0], x1[1])
 
