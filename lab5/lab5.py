@@ -55,12 +55,22 @@ def gradient_descent(G, x, eps):
     diff_log.append(norm_diff)
     log.append(x1)
 
+    sub = np.array(JF_calc(x1[0], x1[1])) - np.array(JF_calc(x0[0], x0[1]))
+    alpha = np.dot(x1 - x0, sub) / ((norm(sub)) ** 2)
+
+    log_alpha = [alpha]
+
     while norm_diff > eps:
         x0 = x1
         x1 = x1 - np.dot(alpha, JF_calc(x1[0], x1[1]))
         norm_diff = norm(x1 - x0)
         diff_log.append(norm_diff)
         log.append(x1)
+        sub = np.array(JF_calc(x1[0], x1[1])) - np.array(JF_calc(x0[0], x0[1]))
+        alpha = np.dot(x1 - x0, sub) / ((norm(sub)) ** 2)
+        log_alpha.append(alpha)
+    # F_calc = sp.lambdify(x, F)
+    # min = F_calc(x1[0], x1[1])
 
     print()
 
