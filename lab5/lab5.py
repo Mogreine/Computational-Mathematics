@@ -43,7 +43,7 @@ def gradient_descent(G, x, eps):
     JF = [sp.diff(F, x[0]), sp.diff(F, x[1])]
     JF_calc = sp.lambdify(x, JF)
 
-    x0 = [0, 1]
+    x0 = [0.5, 0]
     alpha = 0.01
     diff_log = [0]
     log = [norm(x0)]
@@ -72,7 +72,7 @@ def gradient_descent(G, x, eps):
     # F_calc = sp.lambdify(x, F)
     # min = F_calc(x1[0], x1[1])
 
-    print()
+    return x1
 
 
 def main():
@@ -97,8 +97,11 @@ def main():
         [4]
     ])
     log, diffLog = newton(F, J, x0, 1e-6)
-    #printNewton(log, diffLog)
-    gradient_descent(system, x, 1e-6)
+    printNewton(log, diffLog)
+
+    res = gradient_descent(system, x, 1e-6)
+    print("\nМетод градиентного спуска")
+    print("x1 = {0:.6f}\nx2 = {1:.6f}".format(res[0], res[1]))
 
 
 main()
