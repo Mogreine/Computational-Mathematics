@@ -62,7 +62,7 @@ def gradient_descent(G, x, eps):
         diff_log.append(norm_diff)
         log.append(x1)
 
-    print()
+    return x1
 
 
 def main():
@@ -87,8 +87,10 @@ def main():
         [4]
     ])
     log, diffLog = newton(F, J, x0, 1e-6)
-    #printNewton(log, diffLog)
-    gradient_descent(system, x, 1e-6)
+    printNewton(log, diffLog)
 
+    res = gradient_descent(system, x, 1e-6)
+    print("\nМетод градиентного спуска")
+    print("x1 = {0:.6f}\nx2 = {1:.6f}".format(res[0], res[1]))
 
 main()
