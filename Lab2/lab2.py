@@ -18,7 +18,7 @@ def newton(x0, eps, iteration):
     _f1 = f1(x0)
     x = x0 - _f / _f1
     diff = math.fabs(x - x0)
-    print("{0}\t{1:0.6f}\t{2:0.6f}\t{3:0.6f}\t{4:0.6f}".format(iteration, x, _f, _f1, diff))
+    print("{0}\t{1:0.6f}\t{2:0.6f}\t{3:0.6f}\t{4:0.6f}".format(iteration, x0, _f, _f1, diff))
     if diff > eps:
         return newton(x, eps, iteration + 1)
     else:
@@ -29,7 +29,7 @@ def staffinson(x0, eps, iteration):
     _f = f(x0)
     x = x0 - math.pow(_f, 2) / (f(x0 + _f) - _f)
     diff = math.fabs(x - x0)
-    print("{0}\t{1:0.6f}\t{2:0.6f}\t{3:0.6f}".format(iteration, x, _f, diff))
+    print("{0}\t{1:0.6f}\t{2:0.6f}\t{3:0.6f}".format(iteration, x0, _f, diff))
     if diff > eps:
         return staffinson(x, eps, iteration + 1)
     else:
@@ -52,9 +52,10 @@ def main():
     print("x = {0:0.3f}".format(simp_iteration(3, 0.0004, 0)))
     print("\nМетод Ньютона")
     print("n\tx\t\t\tf(x)\t\tf1(x)\t\tdiff")
-    print("x = {0:0.6f}".format(newton(3, 0.000001, 0)))
+    print("x = {0:0.6f}".format(newton(30, 0.000001, 0)))
     print("\nМетод Стеффенсена")
     print("n\tx\t\t\tf(x)\t\tdiff")
-    print("x = {0:0.6f}".format(staffinson(3, 0.000001, 0)))
+    print("x = {0:0.6f}".format(staffinson(10, 0.000001, 0)))
+
 
 main()
